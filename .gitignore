@@ -59,6 +59,7 @@ typings/
 
 # setings file for system
 config.js
+config.server.js
 *.cron_lock
 
 .DS_Store
