@@ -11,8 +11,13 @@ import {
   WATCH_REMOVE
 } from '../constants';
 
-const promises = new Map();
+const promises = [];
 const worker = new fetchWorker();
+
+/**
+ * A message sent to worker will have a unique identifier
+ */
+let messageId = 0;
 
 worker.onerror = (err) => {
   console.log(err);
@@ -20,24 +25,27 @@ worker.onerror = (err) => {
 };
 
 worker.onmessage = (ev) => {
-  const p = promises.get(ev.data.type);
-  if (!p) {
+  const promiseIndex = promises.findIndex(promise => promise.messageId === ev.data.id);
+  if (promiseIndex === -1) {
     return false;
   }
 
   if (ev.data.error) {
-    p.reject(ev.data.error);
-    promises.delete(ev.data.type);
+    promises[promiseIndex].reject(ev.data.error);
+    promises.splice(promiseIndex, 1);
     return false;
   }
 
-  p.resolve(ev.data.data);
+  promises[promiseIndex].resolve(ev.data.data);
+  promises.splice(promiseIndex, 1);
   return true;
 };
 
 const getFromWorker = (type, resolve, reject, query = null) => {
-  promises.set(type, { resolve, reject });
-  worker.postMessage({ query, type });
+  messageId++; // For each message to worker, increment the message id (that way we can identify what promise is resolved from worker by the id instead of by type)
+
+  promises.push({ resolve, reject, type, messageId });
+  worker.postMessage({ query, type, id: messageId });
   return true;
 };
 
