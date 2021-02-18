@@ -31,4 +31,4 @@ const middleware = (app) => {
 
 };
 
-module.exports =  middleware;
+module.exports = middleware;

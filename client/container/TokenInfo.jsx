@@ -74,7 +74,7 @@ class TokenInfo extends Component {
         <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Summary:</span>  {this.state.token.docSummary}</div>
         <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Token Description:</span>  {this.state.token.docDescription}</div>
         <div style={{padding:'15px'}}><span style={{fontWeight:'bold'}}>Description Document:</span>
-          <a target="_blank" href={this.state.token.URL} style={{paddingLeft: '5px', color:'#245498'}}>{this.state.token.URL}</a> ({this.state.token.docHash})
+          <a target="_blank" rel="noopener" href={this.state.token.URL} style={{paddingLeft: '5px', color:'#245498'}}>{this.state.token.URL}</a> ({this.state.token.docHash})
         </div>
         <div style={{padding:'15px'}}>
           {!this.state.token.verifiedOwner && <span><span style={{fontWeight:'bold', paddingRight:'10px'}}>{this.state.token.docCreator}</span><img src="/img/ticker-not-verfied.png" style={{marginLeft:'5px'}}/> (Not Verified)</span>}

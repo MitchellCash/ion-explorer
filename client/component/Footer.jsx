@@ -55,19 +55,19 @@ class Footer extends Component {
           <div className="footer__social-media-wrapper">
             <div className="footer__social-title">Social Media</div>
             <div>
-              <a href="https://t.me/ionomy" target="_blank">
+              <a href="https://t.me/ionomy" target="_blank" rel="noopener">
                 <Icon name="telegram" className="fab footer__social-media-icon" />
               </a>
-              <a href="https://discord.gg/vuZn7gC" target="_blank">
+              <a href="https://discord.gg/vuZn7gC" target="_blank" rel="noopener">
                 <Icon name="discord" className="fab footer__social-media-icon" />
               </a>
-              <a href="https://github.com/ionomy" target="_blank">
+              <a href="https://github.com/ionomy" target="_blank" rel="noopener">
                 <Icon name="github" className="fab footer__social-media-icon" />
               </a>
-              <a href="https://twitter.com/ionomics" target="_blank">
+              <a href="https://twitter.com/ionomics" target="_blank" rel="noopener">
                 <Icon name="twitter" className="fab footer__social-media-icon" />
               </a>
-              <a href="https://facebook.com/ionomy" target="_blank">
+              <a href="https://facebook.com/ionomy" target="_blank" rel="noopener">
                 <Icon name="facebook" className="fab footer__social-media-icon" />
               </a>
             </div>
