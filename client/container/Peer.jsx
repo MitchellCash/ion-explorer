@@ -64,7 +64,8 @@ class Peer extends Component {
 }
 
 const mapDispatch = dispatch => ({
-  getPeers: () => Actions.getPeers()
+  getPeers: () => Actions.getPeers(),
+  setData: data => Actions.setData(dispatch, data)
 });
 
 export default connect(null, mapDispatch)(Peer);

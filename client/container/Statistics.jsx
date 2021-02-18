@@ -184,7 +184,8 @@ class Statistics extends Component {
 
 const mapDispatch = dispatch => ({
   getCoins: () => Actions.getCoinsWeek(dispatch),
-  getTXs: () => Actions.getTXsWeek(dispatch)
+  getTXs: () => Actions.getTXsWeek(dispatch),
+  setData: data => Actions.setData(dispatch, data),
 });
 
 const mapState = state => ({
