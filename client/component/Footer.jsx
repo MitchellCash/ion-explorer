@@ -25,7 +25,7 @@ class Footer extends Component {
     return (
       <div className="footer">
         <div className="footer__block">
-          <img className="footer__logo" src="/img/footerlogo.png" />
+          <img className="footer__logo" src="/img/footerlogo.svg" />
           <span className="footer__legal">
             <div>Copyright &copy; 2018 <a href="https://ionomy.com/">ION</a></div>
             <div>Site design&copy; 2018 <a href="https://bulwarkcrypto.com/">Bulwark Cryptocurrency</a></div>
