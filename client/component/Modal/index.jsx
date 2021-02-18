@@ -2,11 +2,7 @@
 import Component from 'core/Component';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
-
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import Actions from '../../core/Actions';
 
 export default class TokenModal extends Component {
   constructor(props) {
@@ -36,7 +32,7 @@ export default class TokenModal extends Component {
     const { buttonLabel, className, vout} = this.props;
     const { modal, decryption } = this.state;
     console.log('className', className);
-    if (className == "description"){      
+    if (className == "description"){
       return (
         <React.Fragment>
           <span className="link-btn" style={{cursor:'pointer'}} onClick={this.toggle}>{buttonLabel}</span>

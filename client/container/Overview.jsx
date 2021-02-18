@@ -8,10 +8,9 @@ import moment from 'moment';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import HorizontalRule from '../component/HorizontalRule';
 import Table from '../component/Table';
-import CoinSummary from '../container/CoinSummary';
+
 class Overview extends Component {
   static propTypes = {
     txs: PropTypes.array.isRequired,

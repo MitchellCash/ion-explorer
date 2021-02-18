@@ -1,7 +1,6 @@
 
 import Component from '../../core/Component';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
 import React from 'react';

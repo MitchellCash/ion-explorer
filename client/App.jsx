@@ -4,7 +4,7 @@ import Component from './core/Component';
 import { connect } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import { isAddress, isBlock, isTX } from '../lib/blockchain';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import promise from 'bluebird';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -22,17 +22,14 @@ import Movement from './container/Movement';
 import Overview from './container/Overview';
 import Peer from './container/Peer';
 import Statistics from './container/Statistics';
-import Top100 from './container/Top100';
 import TX from './container/TX';
 import TokenList from './container/TokenList';
 import TokenInfo from './container/TokenInfo';
 // Layout
 import CoinSummary from './container/CoinSummary';
 import Footer from './component/Footer';
-import Icon from './component/Icon';
 import Loading from './component/Loading';
 import Menu from './component/Menu';
-import Notification from './component/Notification';
 import SearchBar from './component/SearchBar';
 
 class App extends Component {

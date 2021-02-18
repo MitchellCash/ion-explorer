@@ -4,8 +4,6 @@ import Component from '../core/Component';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import CardTXs from '../component/Card/CardTXs';
 import CardTokens from '../component/Card/CardTokens';
 import HorizontalRule from '../component/HorizontalRule';
 import Pagination from '../component/Pagination';

@@ -1,8 +1,6 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import Card from './Card';
 import Icon from '../Icon';
 
 const CardPoS = ({ average, height, posHeight }) => {

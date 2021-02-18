@@ -3,10 +3,7 @@ import { combineReducers } from 'redux';
 import {
   COIN,
   COINS,
-  ERROR,
   TXS,
-  WATCH_ADD,
-  WATCH_REMOVE,
   DATA
 } from '../constants';
 

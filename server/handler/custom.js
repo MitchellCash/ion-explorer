@@ -1,9 +1,4 @@
 const Coin = require('../../model/coin')
-const config = require('../../config')
-const TX = require('../../model/tx')
-const { BigNumber } = require('bignumber.js')
-const UTXO = require('../../model/utxo');
-const { rpc } = require('../../lib/cron');
 
 const getCustomSupply = async (req, res) => {
   try {

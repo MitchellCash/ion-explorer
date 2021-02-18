@@ -1,5 +1,4 @@
 const { BigNumber } = require('bignumber.js')
-const chain = require('../../lib/blockchain');
 const { forEach } = require('p-iteration');
 const moment = require('moment');
 const { rpc } = require('../../lib/cron');
