@@ -130,12 +130,12 @@ async function syncTokens() {
   // Increase the timeout for masternode.
   rpc.timeout(10000); // 10 secs
 
-  const tokens = await rpc.callForToken('tokeninfo', ["all", "true"]);
+  const tokens = await rpc.call('tokeninfo', ["all", "true"]);
   const inserts = [];
   if (tokens == null) return;
   for (let i=0; i<tokens.length; i++){
     let tk = tokens[i];
-    const scaninfo = await rpc.callForToken('scantokens', ["start", tk.groupID]);
+    const scaninfo = await rpc.call('scantokens', ["start", tk.groupID]);
     let total_amount = "";
     let token_authorities = "";
     if (scaninfo != null){
