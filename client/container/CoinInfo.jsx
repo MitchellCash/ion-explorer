@@ -9,6 +9,7 @@ import CardExchanges from '../component/Card/CardExchanges';
 import CardLinks from '../component/Card/CardLinks';
 import CardROI from '../component/Card/CardROI';
 import HorizontalRule from '../component/HorizontalRule';
+import Actions from "../core/Actions";
 
 class CoinInfo extends Component {
   static propTypes = {
@@ -48,7 +49,7 @@ class CoinInfo extends Component {
 }
 
 const mapDispatch = dispatch => ({
-
+  setData: data => Actions.setData(dispatch, data)
 });
 
 const mapState = state => ({
