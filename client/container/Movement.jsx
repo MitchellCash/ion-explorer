@@ -1,6 +1,7 @@
 
 import Actions from '../core/Actions';
 import Component from '../core/Component';
+import throttle from '../../lib/throttle';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -21,7 +22,7 @@ class Movement extends Component {
 
   constructor(props) {
     super(props);
-    this.debounce = null;
+
     this.state = {
       error: null,
       loading: true,
@@ -30,44 +31,38 @@ class Movement extends Component {
       size: 10,
       txs: []
     };
-  };
+
+    //This is a new, better implementation of debouncing. The problem with old approach is that the initial request will be delayed by 800ms.
+    //First request should not be debounced, only actions after as majority of users will only view first page anyway, we need it to be as fast as possible;
+    this.getThrottledTxs = throttle(() => {
+      this.props
+        .getTXs({
+          limit: this.state.size,
+          skip: (this.state.page - 1) * this.state.size
+        })
+        .then(({ pages, txs }) => {
+          this.setState({ pages, txs, loading: false }, () => {
+            this.props.setTXs(txs); // Add this set of new txs to store
+          });
+        })
+        .catch(error => this.setState({ error, loading: false }));
+    }, 800);
+  }
 
   componentDidMount() {
     this.props.setData({isToken: false});
     this.getTXs();
-  };
+  }
 
   componentWillUnmount() {
-    if (this.debounce) {
-      clearTimeout(this.debounce);
-      this.debounce = null;
+    if (this.throttledTxs) {
+      clearTimeout(this.getThrottledTxs);
     }
-  };
+  }
 
   getTXs = () => {
     this.setState({ loading: true }, () => {
-      if (this.debounce) {
-        clearTimeout(this.debounce);
-      }
-
-      this.debounce = setTimeout(() => {
-        this.props
-          .getTXs({
-            limit: this.state.size,
-            skip: (this.state.page - 1) * this.state.size
-          })
-          .then(({ pages, txs }) => {
-            if (this.debounce) {
-              this.setState({ pages, txs, loading: false }, () => {
-                if (txs.length
-                  && this.props.tx.blockHeight < txs[0].blockHeight) {
-                  this.props.setTXs(txs);
-                }
-              });
-            }
-          })
-          .catch(error => this.setState({ error, loading: false }));
-      }, 800);
+      this.getThrottledTxs();
     });
   };
 
@@ -109,6 +104,7 @@ class Movement extends Component {
 
 const mapDispatch = dispatch => ({
   getTXs: query => Actions.getTXs(null, query),
+  setData: data => Actions.setData(dispatch, data),
   setTXs: txs => Actions.setTXs(dispatch, txs)
 });
 

@@ -1,8 +1,9 @@
 
 import Actions from '../core/Actions';
 import Component from '../core/Component';
+import throttle from '../../lib/throttle';
 import { connect } from 'react-redux';
-import { date24Format } from '../../lib/date'
+import { date24Format } from '../../lib/date';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -23,7 +24,7 @@ class Masternode extends Component {
 
   constructor(props) {
     super(props);
-    this.debounce = null;
+
     this.state = {
       cols: [
         { key: 'lastPaidAt', title: 'Last Paid' },
@@ -41,7 +42,19 @@ class Masternode extends Component {
       page: 1,
       size: 10
     };
-  };
+
+    this.getThrottledMns = throttle(() => {
+      this.props
+        .getMNs({
+          limit: this.state.size,
+          skip: (this.state.page - 1) * this.state.size
+        })
+        .then(({ mns, pages }) => {
+          this.setState({ mns, pages, loading: false });
+        })
+        .catch(error => this.setState({ error, loading: false }));
+    }, 800);
+  }
 
   componentDidMount() {
     this.props.setData({isToken: false});
@@ -49,31 +62,14 @@ class Masternode extends Component {
   };
 
   componentWillUnmount() {
-    if (this.debounce) {
-      clearTimeout(this.debounce);
-      this.debounce = null;
+    if (this.getThrottledMns) {
+      clearTimeout(this.getThrottledMns);
     }
-  };
+  }
 
   getMNs = () => {
     this.setState({ loading: true }, () => {
-      if (this.debounce) {
-        clearTimeout(this.debounce);
-      }
-
-      this.debounce = setTimeout(() => {
-        this.props
-          .getMNs({
-            limit: this.state.size,
-            skip: (this.state.page - 1) * this.state.size
-          })
-          .then(({ mns, pages }) => {
-            if (this.debounce) {
-              this.setState({ mns, pages, loading: false });
-            }
-          })
-          .catch(error => this.setState({ error, loading: false }));
-      }, 800);
+      this.getThrottledMns();
     });
   };
 
@@ -139,6 +135,7 @@ class Masternode extends Component {
 }
 
 const mapDispatch = dispatch => ({
+  setData: data => Actions.setData(dispatch, data),
   getMNs: query => Actions.getMNs(query)
 });
 

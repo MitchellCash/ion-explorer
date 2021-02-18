@@ -1,4 +1,5 @@
 
+import Actions from "../core/Actions";
 import Component from '../core/Component';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,7 +10,6 @@ import CardExchanges from '../component/Card/CardExchanges';
 import CardLinks from '../component/Card/CardLinks';
 import CardROI from '../component/Card/CardROI';
 import HorizontalRule from '../component/HorizontalRule';
-import Actions from "../core/Actions";
 
 class CoinInfo extends Component {
   static propTypes = {
