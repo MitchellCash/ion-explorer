@@ -2,6 +2,7 @@
 import Component from 'core/Component';
 import PropTypes from 'prop-types';
 import React from 'react';
+import config from '../../../config';
 
 import { Link } from 'react-router-dom';
 
@@ -19,9 +20,16 @@ export default class MenuDesktop extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isOpen: true
+    // By default menu is open
+    let isOpen = config.desktopMenuExpanded;
+    const menuIsOpen = JSON.parse(localStorage.getItem('menuIsOpen'));
+    if (menuIsOpen === false) {
+      isOpen = false;
     }
+
+    this.state = {
+      isOpen
+    };
   }
 
   getLinks = () => {
@@ -49,7 +57,13 @@ export default class MenuDesktop extends Component {
     )
   };
 
-  handleToggle = () => this.setState({ isOpen: !this.state.isOpen });
+  handleToggle = () => {
+    const isOpen = !this.state.isOpen;
+    this.setState({ isOpen });
+
+    // Persist menu state in storage
+    localStorage.setItem('menuIsOpen', JSON.stringify(isOpen));
+  };
 
   render() {
     return (
@@ -61,7 +75,6 @@ export default class MenuDesktop extends Component {
               <Icon name="bars" className="menu-desktop__toggle" onClick={ this.handleToggle } />
             </a>
           </div>
-          <p className="menu-desktop__title">MENU</p>
           { this.getLinks() }
         </div>
       </div>

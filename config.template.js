@@ -22,6 +22,11 @@ const config = {
   freegeoip: {
     api: 'https://extreme-ip-lookup.com/json/' //@todo need to find new geoip service as the limits are too small now (hitting limits)
   },
+
+  /**
+   * Explorer Customization
+   */
+  desktopMenuExpanded: true        // If set to true the website will have opened navigation bar on load
 };
 
 module.exports = config;
