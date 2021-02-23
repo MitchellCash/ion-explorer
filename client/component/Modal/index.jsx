@@ -19,9 +19,6 @@ export default class TokenModal extends Component {
   };
 
   toggle = () => {
-    console.log(
-      'toggle'
-    );
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
@@ -31,7 +28,7 @@ export default class TokenModal extends Component {
   render() {
     const { buttonLabel, className, vout} = this.props;
     const { modal, decryption } = this.state;
-    console.log('className', className);
+
     if (className == "description"){
       return (
         <React.Fragment>

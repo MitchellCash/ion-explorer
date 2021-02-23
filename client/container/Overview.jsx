@@ -57,7 +57,7 @@ class Overview extends Component {
       });
     });
     let props = this.props;
-    console.log('overview props', props);
+
     return (
       <div>
         <HorizontalRule title="Latest Blocks" />

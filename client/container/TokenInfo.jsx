@@ -27,7 +27,7 @@ class TokenInfo extends Component {
   componentDidMount() {
     this.props.setData({isToken: true});
     const groupIdentifier = this.props.match.params.hash;
-    console.log('groupIdentifier', groupIdentifier);
+
     this.props.getToken({ groupIdentifier })
     .then((data) => {
         this.setState({token: data});
@@ -40,7 +40,6 @@ class TokenInfo extends Component {
   };
 
   render() {
-    console.log('this.state.token', this.state.token);
     if (this.state.token.docStatus == false){
       return (
         <div>

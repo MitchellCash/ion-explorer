@@ -66,14 +66,12 @@ export const getTokens = (dispatch, query) => {
     return getFromWorker(
       'tokens',
       (payload) => {
-        console.log('get tokens', payload);
         if (dispatch) {
           dispatch({ payload, type: DATA });
         }
         resolve(payload);
       },
       (payload) => {
-        console.log('get tokens error', payload);
         if (dispatch) {
           dispatch({ payload, type: ERROR });
         }

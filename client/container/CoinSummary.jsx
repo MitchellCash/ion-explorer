@@ -36,7 +36,7 @@ class CoinSummary extends Component {
       ? this.props.searches
       : this.props.searches.slice(0, 7);
     let props = this.props;
-    console.log('props', props);
+
     if (props.data.isToken){
       return (
         <div>
