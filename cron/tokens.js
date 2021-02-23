@@ -135,6 +135,11 @@ async function syncTokens() {
   if (tokens == null) return;
   for (let i=0; i<tokens.length; i++){
     let tk = tokens[i];
+
+    if (tk.groupID === 'ion1zups62gf') {
+      continue;
+    }
+
     const scaninfo = await rpc.call('scantokens', ["start", tk.groupID]);
     let total_amount = "";
     let token_authorities = "";
