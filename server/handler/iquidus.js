@@ -4,6 +4,7 @@ const { rpc } = require('../../lib/cron');
 // Models
 const Block = require('../../model/block');
 const Coin = require('../../model/coin');
+const UTXO = require('../../model/utxo');
 
 // Get latest coin info helper method.
 const getCoin = async () => Coin.findOne().sort({ createdAt: -1 });
@@ -123,6 +124,7 @@ const getbalance = async (req, res) => {
   try {
     const utxo = await UTXO.find({ address: req.params.hash });
     let bal = 0.0;
+    utxo.forEach(tx => bal += tx.value);
     res.json(bal);
   } catch (err) {
     console.log(err);
