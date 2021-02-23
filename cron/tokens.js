@@ -1,15 +1,15 @@
 
-require('babel-polyfill'); 
-require('../lib/cron'); 
-const config = require('../config'); 
-const { exit, rpc } = require('../lib/cron'); 
-//const fetch = require('../lib/fetch'); 
-const isofetch = require('isomorphic-fetch'); 
-const { forEach } = require('p-iteration'); 
-const locker = require('../lib/locker'); 
-const moment = require('moment'); 
+require('babel-polyfill');
+require('../lib/cron');
+const config = require('../config');
+const { exit, rpc } = require('../lib/cron');
+//const fetch = require('../lib/fetch');
+const isofetch = require('isomorphic-fetch');
+const { forEach } = require('p-iteration');
+const locker = require('../lib/locker');
+const moment = require('moment');
 const SHA256 = require('sha256');
-// Models. 
+// Models.
 const Token = require('../model/token');
 
 /**
@@ -116,15 +116,15 @@ async function getVerified(url, creator, signature){
  console.log('-------------------String Body----------------------');
  console.log(string_body);
  console.log('-----------------------------------------------------');
-  const res = await fetch("http://localhost:8000/verifymessage", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: string_body
-  });
-  const result = await res.json();
-  return result.res;
+
+  let doc = await fetch(url);
+  doc = await doc.json();
+  doc = doc[0];
+  doc = JSON.stringify(doc);
+
+  const verifyMessage = await rpc.call('verifymessage', [creator, signature, doc]);
+
+  return verifyMessage;
 }
 
 async function syncTokens() {
