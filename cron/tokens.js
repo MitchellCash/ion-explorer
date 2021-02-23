@@ -55,10 +55,12 @@ const Token = require('../model/token');
 
 
 function ValidateDocument(docData){
-  if (docData.length == 2){
-    if (docData[0].chain == undefined || docData[0].ticker == undefined || docData[0].name == undefined ||
-      docData[0].summary == undefined || docData[0].description == undefined || docData[0].creator == undefined
-      || docData[0].contact == undefined || docData[0].contact.email == undefined){
+  if (docData.length == 2) {
+    if (
+      docData[0].chain == undefined || docData[0].ticker == undefined || docData[0].name == undefined ||
+      docData[0].summary == undefined || docData[0].creator == undefined || docData[0].contact == undefined ||
+      docData[0].contact.email == undefined
+    ) {
       return null;
     } else {
         return docData;
