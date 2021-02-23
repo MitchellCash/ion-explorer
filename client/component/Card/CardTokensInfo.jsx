@@ -27,52 +27,13 @@ export default class CardTokensInfo extends Component {
   };
 
   render() {
-    const isOn = this.props.status === 'Online';
-
     return (
       <div className="animated fadeInUp">
-      <Card title="Active Tokens" className="card--status" >
-        <div className="card__row">
-          <span className="card__label">Token system:</span>
-          <span className="card__result card__result--status">
-            <span className={ `u--text-${ isOn ? 'green' : 'red' }`}>
-              { this.props.status }
-            </span>
-          </span>
-        </div>
-        <div className="card__row">
-          <span className="card__label">Total TOken system:</span>
-          <span className="card__result">
-            <Link to={ `/block/${ this.props.blocks }` }>
-              <b>
-                <CountUp
-                  decimals={ 0 }
-                  duration={ 1 }
-                  end={ this.props.blocks }
-                  start={ 0 } />
-              </b>
-            </Link>
-          </span>
-        </div>
-        <div className="card__row">
-          <span className="card__label">XDM Current Fee:</span>
-          <span className="card__result">
-              <b>
-                <CountUp
-                  decimals={ 4 }
-                  duration={ 1 }
-                  end={ this.props.supply }
-                  start={ 0 } />
-              </b>
-          </span>
-        </div>
-        <div className="card__row">
-          <span className="card__label">ATOM Current Fee:</span>
-          <span className="card__result">
-            <Link to="/peer">{ this.props.peers }</Link>
-          </span>
-        </div>
-      </Card>
+        <Card title="Active Tokens" className="card--status" >
+          <div className="card__row">
+            <span className="card__label">More token info coming soon!</span>
+          </div>
+        </Card>
       </div>
     );
   };
