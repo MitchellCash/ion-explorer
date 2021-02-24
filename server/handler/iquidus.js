@@ -1,6 +1,8 @@
 
 const blockex = require('./blockex');
 const { rpc } = require('../../lib/cron');
+const { _getBalance } = require('./helpers');
+
 // Models
 const Block = require('../../model/block');
 const Coin = require('../../model/coin');
@@ -122,10 +124,8 @@ const getaddress = blockex.getAddress;
 
 const getbalance = async (req, res) => {
   try {
-    const utxo = await UTXO.find({ address: req.params.hash });
-    let bal = 0.0;
-    utxo.forEach(tx => bal += tx.value);
-    res.json(bal);
+    const balance = await _getBalance(req.params.hash);
+    res.json(balance);
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message || err);

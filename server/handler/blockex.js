@@ -4,6 +4,7 @@ const moment = require('moment');
 const { rpc } = require('../../lib/cron');
 const config = require('../../config');
 const fetch = require('../../lib/fetch');
+const { _getCirculatingSupply, _getTotalSupply } = require('./helpers');
 
 // System models for query and etc.
 const Block = require('../../model/block');
@@ -426,23 +427,7 @@ const getPeer = (req, res) => {
  */
 const getCirculatingSupply = async (req, res) => {
   try {
-    let circulatingSupply = 0;
-    let totalSupply = 0;
-
-    const api = `${ config.api.host }/ext`;
-    const devFundOne = await fetch(`${ api }/getbalance/ikHbMe6SHea4MHxc1psfPE7eVhhof4v1SN`);
-    const devFundTwo = await fetch(`${ api }/getbalance/iereuy4Vn96x8oUwXEj5E5FKNeA8uHcabv`);
-
-    const utxo = await UTXO.aggregate([
-      {$match: {address: {$ne: 'ZERO_COIN_MINT'}}},
-      { $group: { _id: 'supply', total: { $sum: '$value' } } }
-    ]);
-
-    const info = await rpc.call('getinfo');
-
-    totalSupply = utxo[0].total + info.xIONsupply.total;
-    circulatingSupply = totalSupply - devFundOne - devFundTwo;
-
+    const circulatingSupply = await _getCirculatingSupply();
     res.json(circulatingSupply);
   } catch(err) {
     console.log(err);
@@ -457,17 +442,7 @@ const getCirculatingSupply = async (req, res) => {
  */
 const getTotalSupply = async (req, res) => {
   try {
-    let totalSupply = 0;
-
-    const utxo = await UTXO.aggregate([
-      {$match: {address: {$ne: 'ZERO_COIN_MINT'}}},
-      { $group: { _id: 'supply', total: { $sum: '$value' } } }
-    ]);
-
-    const info = await rpc.call('getinfo');
-
-    totalSupply = utxo[0].total + info.xIONsupply.total;
-
+    const totalSupply = await _getTotalSupply();
     res.json(totalSupply);
   } catch(err) {
     console.log(err);
@@ -483,12 +458,8 @@ const getTotalSupply = async (req, res) => {
  */
 const getSupply = async (req, res) => {
   try {
-    let c = 0;
-    let t = 0;
-
-    const api = `${ config.api.host }${ config.api.prefix }`;
-    c = await fetch(`${ api }/circulating_supply`);
-    t = await fetch(`${ api }/total_supply`);
+    const c = await _getCirculatingSupply();
+    const t = await _getTotalSupply();
 
     res.json({ c, t });
   } catch(err) {
